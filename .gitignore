@@ -3,3 +3,4 @@
 assets/.METADATA/job_run.*
 assets/job_run
 .idea
+__pycache__
