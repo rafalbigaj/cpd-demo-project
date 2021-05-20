@@ -1,5 +1,5 @@
-from sklearn.cluster import DBSCAN
+from sklearn import cluster
 
-def my_dbscan(X):
-    clustering = DBSCAN(eps=3, min_samples=2).fit(X)
-    return clustering
+
+def my_dbscan():
+    return cluster.DBSCAN(eps=2.0, min_samples=2)
