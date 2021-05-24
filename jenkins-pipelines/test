@@ -12,6 +12,8 @@ node {
             PATH = "$PATH:$PWD"
         }
 
+        sh 'printenv'
+        sh './cpdctl config context list'
         sh 'cpdctl config context list'
         sh 'cpdctl config context use cpd'
 
