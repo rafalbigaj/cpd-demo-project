@@ -9,7 +9,7 @@ node {
         }
 
         environment {
-            PATH=$PATH:$PWD
+            PATH = "$PATH:$PWD"
         }
 
         sh 'cpdctl config context list'
