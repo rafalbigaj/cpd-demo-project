@@ -7,7 +7,7 @@ qa_space_id=$QA_SPACE_ID
 qa_code_package_id=$(<./code_package_id)
 job_name="DBScan-code-package-job-$(date +'%Y-%m-%d_%H-%M-%S')"
 
-read -r -d '' job_json << EOM
+cat > job.json <<-EOJSON
 {
     "name": "$job_name",
     "asset_ref": "$qa_code_package_id",
@@ -17,15 +17,27 @@ read -r -d '' job_json << EOM
         "entrypoint": "assets/jupyterlab/scoring.py"
     }
 }
-EOM
+EOJSON
 
-echo $job_json
+cat ./job.json
 
-qa_job_id=$(cpdctl job create --space-id $qa_space_id --job '$job_json' | jq -r '.metadata.asset_id')
+qa_job_id=$(cpdctl job create --space-id $qa_space_id --job '@./job.json' --output json -j  'metadata.asset_id' --raw-output)
 
-echo "Job ID: $job_id"
+echo "Job ID: $qa_job_id"
 
-cpdctl job run create --space-id $qa_space_id --job-id $qa_job_id --job-run '{}'
+qa_run_id=$(cpdctl job run create --space-id $qa_space_id --job-id $qa_job_id --job-run '{}' --async --output json -j  'metadata.asset_id' --raw-output)
+
+echo "Started job run ID: $qa_run_id..."
+
+cpdctl job run wait --space-id $qa_space_id --job-id $qa_job_id --run-id $qa_run_id
+cpdctl job run logs --space-id $qa_space_id --job-id $qa_job_id --run-id $qa_run_id
+
+echo "Done!"
+
+echo "Cleaning up..."
 
 cpdctl job delete --space-id $qa_space_id --job-id $qa_job_id
 cpdctl code-package delete --space-id $qa_space_id --code-package-id $qa_code_package_id
+
+echo "Cleanup done"
+
