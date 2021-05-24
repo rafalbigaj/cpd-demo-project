@@ -3,7 +3,7 @@ export CPDCTL_ENABLE_CODE_PACKAGE=1
 
 cpdctl config context use cpd_prod
 
-qa_script_id=$QA_SCRIPT_ID
+qa_space_id=$QA_SPACE_ID
 qa_code_package_id=$(<./code_package_id)
 job_name="DBScan-code-package-job-$(date +'%Y-%m-%d_%H-%M-%S')"
 

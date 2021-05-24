@@ -14,7 +14,7 @@ node {
         }
 
         stage('Test code package') {
-            sh 'bash -e ./scripts/test.sh'
+            sh 'bash -ex ./scripts/test.sh'
         }
     }
 }
