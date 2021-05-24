@@ -1,17 +1,19 @@
-import cupy as cp
+# import cupy as cp
 import pandas as pd
-import cudf
-import dask_cudf
+# import cudf
+# import dask_cudf
 
-def good_neigbour(df):
+
+def good_neighbours(df):
     """
     Computation of a big correlation matrix. Should be done on a GPU. We could not test this, as there is no gpu support
     on power. We expect that dask_cudf works on x86.
     :param df:
     :return:
     """
-    cuda = cudf.DataFrame(df)
-    df = dask_cudf.from_cudf(cuda, npartitions=2)
+    # cuda = cudf.DataFrame(df)
+    # df = dask_cudf.from_cudf(cuda, npartitions=2)
+    df = pd.DataFrame(df)
 
     df = df.groupby(['account', 'date'])['volume'].sum()
 
