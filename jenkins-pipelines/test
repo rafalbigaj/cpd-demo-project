@@ -8,23 +8,13 @@ node {
             sh 'chmod a+rw $CPDCONFIG'
         }
 
-        environment {
-            PATH = "$PATH:$PWD"
-        }
-
-        sh 'printenv'
-        sh './cpdctl config context list'
-        sh 'cpdctl config context list'
-        sh 'cpdctl config context use cpd'
-
         stage('Create code package') {
             zip archive: true, dir: '', glob: '', zipFile: 'code_package.zip'
-
-            sh 'ls -al'
+            sh './scripts/create_code_package.sh'
         }
 
         stage('Test code package') {
-            sh 'ls -al'
+            sh './scripts/test.sh'
         }
     }
 }
