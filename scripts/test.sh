@@ -5,7 +5,7 @@ cpdctl config context use cpd_prod
 
 qa_script_id=$QA_SCRIPT_ID
 qa_code_package_id=$(<./code_package_id)
-job_name="$(date +"DBScan - code package job - %Y-%m-%d_%H-%M-%S")"
+job_name="DBScan-code-package-job-$(date +'%Y-%m-%d_%H-%M-%S')"
 
 read -r -d '' job_json << EOM
 {

@@ -4,7 +4,7 @@ export CPDCTL_ENABLE_CODE_PACKAGE=1
 cpdctl config context use cpd_prod
 
 qa_space_id=$QA_SPACE_ID
-code_package_name=DBScan - credit risk - $(date +"DBScan - credit risk - %Y-%m-%d_%H-%M-%S")
+code_package_name="DBScan-credit-risk-$(date +'%Y-%m-%d_%H-%M-%S')"
 
 # Upload zip archive with python code
 cpdctl asset file upload --space-id $qa_space_id --path code_package/dbscan-credit-risk.zip --file code_package.zip
